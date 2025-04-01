@@ -5,7 +5,7 @@ import openpyxl
 from mcp.server.fastmcp import FastMCP
 
 # Pass lifespan to server
-mcp = FastMCP("manage todos")
+mcp = FastMCP("excel workbook actions")
 
 class Workbook:
 	"""
