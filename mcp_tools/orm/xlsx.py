@@ -144,6 +144,16 @@ class Workbook:
 		sheet.delete_rows(row_number)
 		self.save()
 
+	def replace_rows(self, first_row_index, sheet_name, rows, skip_save=False):
+		current_row_index = first_row_index
+		for row in rows:
+			self.update_row(sheet_name, current_row_index, row)
+			current_row_index += 1
+		if not skip_save:
+			self.save()
+
+
+
 
 
 
@@ -229,9 +239,18 @@ def delete_row_in_excel_sheet(filepath: str, sheet_name: str, row_number: int):
 	wb = Workbook(filepath)
 	wb.delete_row(sheet_name, row_number)
 
-
-# todo - copy_worksheet(from_worksheet)[source]
-
+@mcp.tool('replace-rows-in-excel-sheet')
+def replace_rows_in_excel_sheet(filepath: str, sheet_name: str, first_row_index: int, rows: list):
+	"""
+	Replace rows in an excel sheet
+	:param filepath:
+	:param sheet_name:
+	:param first_row_index:
+	:param rows:
+	:return:
+	"""
+	wb = Workbook(filepath)
+	wb.replace_rows(first_row_index, sheet_name, rows)
 
 
 @mcp.prompt()
